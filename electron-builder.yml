@@ -1,0 +1,54 @@
+# Electron Builder 高级配置
+# 专门针对Deepin系统优化
+
+appId: com.mspaint.desktop
+productName: MSPaint Desktop
+copyright: Copyright © 2024 MSPaint Desktop
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - "main-mspaint.js"
+  - "app-icon.png"
+  - "mspaint/**/*"
+  - "node_modules/**/*"
+  - "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
+  - "!.editorconfig"
+  - "!**/._*"
+  - "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}"
+  - "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}"
+  - "!**/{appveyor.yml,.travis.yml,circle.yml}"
+  - "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+
+# 源码保护配置
+asar: true
+compression: maximum
+asarUnpack:
+  - "node_modules/ffmpeg-static/**/*"
+  - "node_modules/ffprobe-static/**/*"
+
+# 额外保护措施
+extraResources:
+  - from: "mspaint/"
+    to: "app.asar.unpacked/"
+    filter:
+      - "**/*"
+
+# Linux 配置 - 专门针对Deepin优化
+linux:
+  target:
+    - target: deb
+      arch:
+        - x64
+  category: Graphics
+  icon: assets/icon.png
+
+# 构建优化
+compression: maximum
+removePackageScripts: true
+removePackageKeywords: true
+
+# 图标路径修复
+afterPack: "./scripts/fix-icons.js" 
