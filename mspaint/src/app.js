@@ -538,11 +538,42 @@ const updateZoomDisplay = () => {
 	`);
 };
 
+// 显示设备像素比和系统缩放信息
+const updateSystemInfo = () => {
+	if (typeof window !== 'undefined' && window.devicePixelRatio && $status_text) {
+		const devicePixelRatio = window.devicePixelRatio;
+		const systemScale = Math.round(devicePixelRatio * 100);
+		
+		// 根据当前语言显示不同的文本
+		const currentLanguage = get_language();
+		let infoText;
+		
+		if (currentLanguage === "zh" || currentLanguage === "zh-simplified") {
+			infoText = `设备像素比: ${devicePixelRatio}, 系统缩放: ${systemScale}%`;
+		} else {
+			infoText = `Device Pixel Ratio: ${devicePixelRatio}, System Scale: ${systemScale}%`;
+		}
+		
+		$status_text.text(infoText);
+	} else {
+		console.log('状态栏信息更新失败:', {
+			windowExists: typeof window !== 'undefined',
+			devicePixelRatio: window?.devicePixelRatio,
+			statusTextExists: !!$status_text
+		});
+	}
+};
+
 // 监听缩放变化事件
 $G.on("magnification-changed", updateZoomDisplay);
 
 // 初始化显示
 updateZoomDisplay();
+
+// 延迟执行系统信息更新，确保DOM已准备好
+setTimeout(() => {
+	updateSystemInfo();
+}, 100);
 
 // #region News Indicator
 const news_seen_key = "mspaint latest news seen";
@@ -656,7 +687,8 @@ if ($news_indicator.text().includes("Bubblegum")) {
 // #endregion
 
 $status_text.default = () => {
-	$status_text.text(""); // 清空默认状态文本，不显示帮助提示
+	// 显示系统信息而不是清空
+	updateSystemInfo();
 };
 $status_text.default();
 

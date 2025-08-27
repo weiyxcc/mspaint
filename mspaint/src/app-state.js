@@ -11,7 +11,54 @@
 // Causes TypeScript errors
 // const { get_tool_by_id, make_monochrome_palette, make_history_node, default_palette, make_canvas, TOOL_PENCIL } = window;
 
-const default_magnification = 1;
+// 根据系统缩放比自动调整初始缩放
+const get_auto_magnification = () => {
+	// 检查是否在浏览器环境中，并且能够获取到devicePixelRatio
+	if (typeof window !== 'undefined' && window.devicePixelRatio && window.devicePixelRatio > 0) {
+		const devicePixelRatio = window.devicePixelRatio;
+		
+		// 根据Deepin系统的缩放选项进行映射
+		// 50%, 75%, 100%, 125%, 150%, 175%, 200%, 225%, 250%, 以及更高缩放
+		if (devicePixelRatio >= 5.0) {
+			// 500%或更高系统缩放 → 应用使用20%缩放
+			return 0.2;
+		} else if (devicePixelRatio >= 3.0) {
+			// 300%系统缩放 → 应用使用33%缩放
+			return 0.33;
+		} else if (devicePixelRatio >= 2.5) {
+			// 250%系统缩放 → 应用使用40%缩放
+			return 0.4;
+		} else if (devicePixelRatio >= 2.25) {
+			// 225%系统缩放 → 应用使用44%缩放
+			return 0.44;
+		} else if (devicePixelRatio >= 2.0) {
+			// 200%系统缩放 → 应用使用50%缩放
+			return 0.5;
+		} else if (devicePixelRatio >= 1.75) {
+			// 175%系统缩放 → 应用使用57%缩放
+			return 0.57;
+		} else if (devicePixelRatio >= 1.5) {
+			// 150%系统缩放 → 应用使用67%缩放
+			return 0.67;
+		} else if (devicePixelRatio >= 1.25) {
+			// 125%系统缩放 → 应用使用80%缩放
+			return 0.8;
+		} else if (devicePixelRatio >= 1.0) {
+			// 100%系统缩放 → 应用使用100%缩放
+			return 1.0;
+		} else if (devicePixelRatio >= 0.75) {
+			// 75%系统缩放 → 应用使用133%缩放
+			return 1.33;
+		} else if (devicePixelRatio >= 0.5) {
+			// 50%系统缩放 → 应用使用200%缩放
+			return 2.0;
+		}
+	}
+	// 无法获取系统缩放比或默认情况 → 应用使用100%缩放
+	return 1.0;
+};
+
+const default_magnification = get_auto_magnification();
 
 /** @type {Tool} */
 const default_tool = window.get_tool_by_id(window.TOOL_PENCIL);
@@ -26,7 +73,7 @@ let transparency = false;
 let monochrome = false;
 
 let magnification = default_magnification;
-let return_to_magnification = 0.5;
+let return_to_magnification = default_magnification;
 
 /** @type {PixelCanvas} */
 const main_canvas = window.make_canvas();

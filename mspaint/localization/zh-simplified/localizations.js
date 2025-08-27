@@ -516,5 +516,6 @@ loaded_localizations("zh-simplified", {
 	"Lum": "亮度",
 	"Red": "红色",
 	"Green": "绿色",
-	"Blue": "蓝色"
+	"Blue": "蓝色",
+	"Device Pixel Ratio: %1, System Scale: %2%": "设备像素比: %1, 系统缩放: %2%"
 });
