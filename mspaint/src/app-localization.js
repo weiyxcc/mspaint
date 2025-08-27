@@ -1085,8 +1085,8 @@
 	};
 	function set_language(language) {
 		showMessageBox({
-			title: "Reload Required",
-			message: "The application needs to reload to change the language.",
+			title: localize("Reload Required"),
+			message: localize("The application needs to reload to change the language."),
 			buttons: [
 				{ label: localize("OK"), value: "reload", default: true },
 				{ label: localize("Cancel"), value: "cancel" },
@@ -1097,6 +1097,8 @@
 		}).then((result) => {
 			if (result === "reload") {
 				are_you_sure(() => {
+					// Start a fresh local session so reload opens a blank canvas when discarding changes
+					try { window.new_local_session?.(); } catch (_e) {}
 					try {
 						localStorage[language_storage_key] = language;
 						exit_fullscreen_if_ios();

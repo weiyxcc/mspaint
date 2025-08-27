@@ -1178,24 +1178,12 @@ for (const [ariaKeyShortcuts, expectedValidity] of ariaKeyShortcutsTestCases) {
 		
 		bar.appendChild(themeButton);
 		
-		// Language toggle button
+		// Language toggle button (use set_language to honor save-confirmation flow)
 		const languageButton = make_button(localize("Toggle Language"), "setting-cn", ()=> {
 			const current_language = get_language();
-			let new_language;
-			
-			if (current_language === "zh" || current_language === "zh-simplified") {
-				new_language = "en";
-			} else {
-				new_language = "zh";
-			}
-			
-			// Directly save language and reload without confirmation dialog
-			try {
-				localStorage["mspaint language"] = new_language;
-				location.reload();
-			} catch (error) {
-				show_error_message("Failed to store language preference. Make sure cookies / local storage is enabled in your browser settings.", error);
-			}
+			const new_language = (current_language === "zh" || current_language === "zh-simplified") ? "en" : "zh";
+			// Use built-in flow which prompts to save via are_you_sure() before reload
+			set_language(new_language);
 		}, "language-toggle");
 		
 		// Set initial icon based on current language

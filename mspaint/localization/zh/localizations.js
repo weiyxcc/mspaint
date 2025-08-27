@@ -5,6 +5,8 @@
 // Generated with: npm run update-localization
 //
 loaded_localizations("zh", {
+    "Reload Required": "需要重新加载",
+    "The application needs to reload to change the language.": "需要重新加载应用以切换语言。",
 	"Attributes": "属性",
 	"MS Shell Dlg": "宋体",
 	"&Width:": "宽度(&W):",
