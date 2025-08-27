@@ -54,6 +54,7 @@ const menus = {
 				"download", "download document", "download file", "download image", "download picture", "download image file",
 				"download the document", "download the file", "download the image", "download the image file",
 			],
+			enabled: () => !saved,
 			action: () => { file_save(); },
 			description: localize("Saves the active document."),
 		},
@@ -1108,7 +1109,8 @@ for (const [ariaKeyShortcuts, expectedValidity] of ariaKeyShortcutsTestCases) {
 		// File group
 		bar.appendChild(make_button(localize("New"), "file-new", ()=> file_new()));
 		bar.appendChild(make_button(localize("Open"), "file-open", ()=> file_open()));
-		bar.appendChild(make_button(localize("Save"), "file-save", ()=> file_save()));
+		const saveButton = make_button(localize("Save"), "file-save", ()=> file_save());
+		bar.appendChild(saveButton);
 		bar.appendChild(make_button(localize("Save As"), "file-save-as", ()=> file_save_as()));
 		bar.appendChild(make_divider());
 		// Edit group
@@ -1123,9 +1125,17 @@ for (const [ariaKeyShortcuts, expectedValidity] of ariaKeyShortcutsTestCases) {
 		
 		// Initial state
 		updateUndoRedoButtons();
+		// Save button reflects whether there are unsaved changes
+		const updateSaveButton = () => {
+			saveButton.disabled = Boolean(saved);
+		};
+		updateSaveButton();
 		
-		// Listen for history changes
-		$G.on("session-update", updateUndoRedoButtons);
+		// Listen for history/dirty state changes
+		$G.on("session-update", () => {
+			updateUndoRedoButtons();
+			updateSaveButton();
+		});
 		
 		bar.appendChild(undoButton);
 		bar.appendChild(redoButton);

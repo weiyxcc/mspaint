@@ -30,6 +30,8 @@ loaded_localizations("zh", {
 	"Select &Color": "选择颜色(&C)",
 	"Select Color": "选择颜色",
 	"OK": "确定",
+	"Yes": "是",
+	"No": "否",
 	"Cancel": "取消",
 	"&Default": "默认(&D)",
 	"Default": "默认",

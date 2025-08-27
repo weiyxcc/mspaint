@@ -5,6 +5,8 @@
 // Generated with: npm run update-localization
 //
 loaded_localizations("zh-simplified", {
+    "Yes": "是",
+    "No": "否",
 	"Attributes": "属性",
 	"MS Shell Dlg": "宋体",
 	"&Width:": "宽度(&W):",
