@@ -915,13 +915,7 @@ function stretch_and_skew(x_scale, y_scale, h_skew, v_skew) {
 			(h_skew !== 0 || v_skew !== 0) ? (
 				(x_scale !== 1 || y_scale !== 1) ? localize("Stretch and Skew") : localize("Skew")
 			) : localize("Stretch"),
-		icon: get_help_folder_icon(
-			(h_skew !== 0) ? "p_skew_h.png" :
-				(v_skew !== 0) ? "p_skew_v.png" :
-					(y_scale !== 1) ? (
-						(x_scale !== 1) ? "p_stretch_both.png" : "p_stretch_v.png"
-					) : "p_stretch_h.png"
-		),
+		icon: null,
 	}, (original_canvas, _original_ctx, new_canvas, new_ctx) => {
 		const w = original_canvas.width * x_scale;
 		const h = original_canvas.height * y_scale;
