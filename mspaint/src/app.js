@@ -521,10 +521,28 @@ const $status_area = $(E("div")).addClass("status-area").appendTo($V);
 window.$status_area = $status_area;
 const $status_text = /** @type {JQuery<HTMLDivElement> & {default: ()=> void}} */($(E("div")).addClass("status-text status-field inset-shallow").appendTo($status_area));
 window.$status_text = $status_text;
-const $status_position = $(E("div")).addClass("status-coordinates status-field inset-shallow").appendTo($status_area);
-window.$status_position = $status_position;
 const $status_size = $(E("div")).addClass("status-coordinates status-field inset-shallow").appendTo($status_area);
 window.$status_size = $status_size;
+const $status_position = $(E("div")).addClass("status-coordinates status-field inset-shallow").appendTo($status_area);
+window.$status_position = $status_position;
+const $status_zoom = $(E("div")).addClass("status-zoom status-field inset-shallow").appendTo($status_area);
+window.$status_zoom = $status_zoom;
+
+// 初始化缩放显示
+const updateZoomDisplay = () => {
+	const zoomPercent = Math.round(magnification * 100);
+	const zoomText = get_language() === "zh" || get_language() === "zh-simplified" ? "缩放" : "Zoom";
+	$status_zoom.html(`
+		<span style="margin-right: 4px;">${zoomText}</span>
+		<span>${zoomPercent}%</span>
+	`);
+};
+
+// 监听缩放变化事件
+$G.on("magnification-changed", updateZoomDisplay);
+
+// 初始化显示
+updateZoomDisplay();
 
 // #region News Indicator
 const news_seen_key = "mspaint latest news seen";
@@ -638,7 +656,7 @@ if ($news_indicator.text().includes("Bubblegum")) {
 // #endregion
 
 $status_text.default = () => {
-	$status_text.text(localize("For Help, click Help Topics on the Help Menu."));
+	$status_text.text(""); // 清空默认状态文本，不显示帮助提示
 };
 $status_text.default();
 

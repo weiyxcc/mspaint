@@ -189,6 +189,7 @@ html, body, .mspaint {
 	overflow: hidden;
 	white-space: nowrap;
 	cursor: default;
+	font-size: 11px;
 }
 .status-text {
 	flex-basis: auto;
@@ -201,6 +202,15 @@ html, body, .mspaint {
 	flex: 0 0 114px;
 	min-width: 0px;
 	padding-left: 3px;
+}
+.status-zoom {
+	flex: 0 0 100px;
+	min-width: 0px;
+	padding-left: 3px;
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .enlarge-ui .color-button {
