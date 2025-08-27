@@ -31,7 +31,7 @@
   },
   "build": {
     "appId": "com.mspaint.desktop",
-    "productName": "MSPaint Desktop",
+    "productName": "MSPaint画图",
     "directories": {
       "output": "dist"
     },

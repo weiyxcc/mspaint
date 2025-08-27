@@ -29,7 +29,7 @@ const createWindow = () => {
     minWidth: 260,
     minHeight: 360,
     // icon: path.join(__dirname, 'app-icon.png'), // 暂时注释掉以避免GLib错误
-    title: "MS Paint Desktop",
+    title: "MSPaint画图",
     show: false,  // 先不显示窗口
     frame: true,  // 恢复窗口框架
     titleBarStyle: 'default',  // 恢复标题栏

@@ -2,7 +2,7 @@
 # 专门针对Deepin系统优化
 
 appId: com.mspaint.desktop
-productName: MSPaint Desktop
+productName: MSPaint画图
 copyright: Copyright © 2024 MSPaint Desktop
 
 directories:
