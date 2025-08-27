@@ -28,7 +28,7 @@ const createWindow = () => {
     height: 600,
     minWidth: 260,
     minHeight: 360,
-    icon: path.join(__dirname, 'app-icon.png'),
+    // icon: path.join(__dirname, 'app-icon.png'), // 暂时注释掉以避免GLib错误
     title: "MS Paint Desktop",
     show: false,  // 先不显示窗口
     frame: true,  // 恢复窗口框架
@@ -39,10 +39,17 @@ const createWindow = () => {
     },
   });
 
-  // 强制设置窗口图标
-  const iconPath = path.join(__dirname, 'app-icon.png');
-  console.log('Setting icon to:', iconPath);
-  editor_window.setIcon(iconPath);
+  // 强制设置窗口图标（仅在非Linux系统上）
+  // 在Linux上跳过图标设置以避免GLib错误
+  if (process.platform !== 'linux') {
+    try {
+      const iconPath = path.join(__dirname, 'app-icon.png');
+      console.log('Setting icon to:', iconPath);
+      editor_window.setIcon(iconPath);
+    } catch (error) {
+      console.log('Icon setting skipped due to platform compatibility');
+    }
+  }
 
   // 立即移除菜单栏
   editor_window.setMenu(null);
