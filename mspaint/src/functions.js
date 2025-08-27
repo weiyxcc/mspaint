@@ -439,6 +439,28 @@ if (dev_custom_zoom) {
 	});
 }
 
+function zoom_in() {
+	const current_mag = magnification;
+	// 将当前倍数转换为百分比，增加10%，再转换回倍数
+	const current_percent = current_mag * 100;
+	const new_percent = current_percent + 10;
+	const new_mag = Math.min(80, new_percent / 100);
+	if (new_mag !== current_mag) {
+		set_magnification(new_mag);
+	}
+}
+
+function zoom_out() {
+	const current_mag = magnification;
+	// 将当前倍数转换为百分比，减少10%，再转换回倍数
+	const current_percent = current_mag * 100;
+	const new_percent = current_percent - 10;
+	const new_mag = Math.max(0.1, new_percent / 100);
+	if (new_mag !== current_mag) {
+		set_magnification(new_mag);
+	}
+}
+
 function show_custom_zoom_window() {
 	if ($custom_zoom_window) {
 		$custom_zoom_window.close();
@@ -4223,7 +4245,7 @@ export {
 	file_save_as, getSelectionText, get_all_url_params, get_history_ancestors, get_tool_by_id, get_uris, get_url_param, go_to_history_node, handle_keyshortcuts, has_any_transparency, image_attributes, image_flip_and_rotate, image_invert_colors, image_stretch_and_skew, load_image_from_uri, load_theme_from_text, make_history_node, make_monochrome_palette, make_monochrome_pattern, make_opaque, make_or_update_undoable, make_stripe_pattern, meld_selection_into_canvas,
 	meld_textbox_into_canvas, open_from_file, open_from_image_info, paste, paste_image_from_file, please_enter_a_number, read_image_file, redo, render_canvas_view, render_history_as_gif, reset_canvas_and_history, reset_file, reset_selected_colors, resize_canvas_and_save_dimensions, resize_canvas_without_saving_dimensions, sanity_check_blob, save_as_prompt, save_selection_to_file, select_all, select_tool, select_tools, set_all_url_params, set_magnification, show_about_paint, show_convert_to_black_and_white, show_custom_zoom_window, show_document_history, show_error_message, show_file_format_errors, show_multi_user_setup_dialog, show_news, show_resource_load_error_message, switch_to_polychrome_palette, toggle_grid,
 	toggle_thumbnail, try_exec_command, undo, undoable, update_canvas_rect, update_css_classes_for_conditional_messages, update_disable_aa, update_from_saved_file, update_helper_layer,
-	update_helper_layer_immediately, update_magnified_canvas_size, update_title, view_bitmap, write_image_file
+	update_helper_layer_immediately, update_magnified_canvas_size, update_title, view_bitmap, write_image_file, zoom_in, zoom_out
 };
 // Temporary globals until all dependent code is converted to ES Modules
 window.make_history_node = make_history_node; // used by app-state.js
@@ -4235,3 +4257,5 @@ window.exit_fullscreen_if_ios = exit_fullscreen_if_ios; // used by app-localizat
 window.get_tool_by_id = get_tool_by_id; // used by app-state.js
 window.make_monochrome_palette = make_monochrome_palette; // used by app-state.js
 window.sanity_check_blob = sanity_check_blob; // used by electron-injected.js
+window.zoom_in = zoom_in; // used by menus.js
+window.zoom_out = zoom_out; // used by menus.js

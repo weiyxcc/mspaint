@@ -1133,6 +1133,9 @@ for (const [ariaKeyShortcuts, expectedValidity] of ariaKeyShortcutsTestCases) {
 		bar.appendChild(make_button(localize("Copy"), "edit-copy", ()=> edit_copy()));
 		bar.appendChild(make_button(localize("Paste"), "edit-paste", ()=> edit_paste()));
 		bar.appendChild(make_divider());
+		// Zoom controls
+		bar.appendChild(make_button(localize("Zoom In"), "image_magnify", ()=> zoom_in()));
+		bar.appendChild(make_button(localize("Zoom Out"), "image_reduction", ()=> zoom_out()));
 		// Image menu group
 		bar.appendChild(make_button(localize("Flip/Rotate"), "image-flip-rotate", ()=> image_flip_and_rotate()));
 		bar.appendChild(make_button(localize("Stretch/Skew"), "image-stretch-skew", ()=> image_stretch_and_skew()));

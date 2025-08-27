@@ -26,7 +26,7 @@ let transparency = false;
 let monochrome = false;
 
 let magnification = default_magnification;
-let return_to_magnification = 4;
+let return_to_magnification = 0.5;
 
 /** @type {PixelCanvas} */
 const main_canvas = window.make_canvas();
